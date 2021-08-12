@@ -1,3 +1,6 @@
+ESX = nil
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
 RegisterServerEvent('esx_skin:save')
 AddEventHandler('esx_skin:save', function(skin)
 	local xPlayer = ESX.GetPlayerFromId(source)

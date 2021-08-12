@@ -10,6 +10,18 @@ AddEventHandler('esx:onPlayerJoined', function()
 	end
 end)
 
+AddEventHandler('esx:playerLogout', function(playerId)
+	local xPlayer = ESX.GetPlayerFromId(playerId)
+	if xPlayer then
+		TriggerEvent('esx:playerDropped', playerId, '')
+
+		ESX.SavePlayer(xPlayer, function()
+			ESX.Players[playerId] = nil
+		end)
+	end
+	TriggerClientEvent("esx:onPlayerLogout", playerId)
+end)
+
 function onPlayerJoined(playerId)
 	local identifier
 

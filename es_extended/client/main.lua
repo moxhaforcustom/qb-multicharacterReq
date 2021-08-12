@@ -1,14 +1,25 @@
 local isPaused, isDead, pickups = false, false, {}
 
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
+-- Citizen.CreateThread(function()
+-- 	while true do
+-- 		Citizen.Wait(0)
 
-		if NetworkIsPlayerActive(PlayerId()) then
-			TriggerServerEvent('esx:onPlayerJoined')
-			break
-		end
-	end
+-- 		if NetworkIsPlayerActive(PlayerId()) then
+-- 			TriggerServerEvent('esx:onPlayerJoined')
+-- 			break
+-- 		end
+-- 	end
+-- end)
+
+RegisterNetEvent('esx-multicharacter:login')
+AddEventHandler('esx-multicharacter:login', function ()
+	TriggerServerEvent('esx:onPlayerJoined')
+end)
+
+RegisterNetEvent('esx:onPlayerLogout')
+AddEventHandler('esx:onPlayerLogout', function()
+	ESX.PlayerLoaded = false
+	-- if Config.EnableHud then ESX.UI.HUD.Reset() end
 end)
 
 RegisterNetEvent('esx:playerLoaded')

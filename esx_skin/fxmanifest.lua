@@ -6,8 +6,6 @@ description 'ESX Skin'
 
 version 'legacy'
 
-shared_script '@es_extended/imports.lua'
-
 server_scripts {
 	'@mysql-async/lib/MySQL.lua',
 	'@es_extended/locale.lua',

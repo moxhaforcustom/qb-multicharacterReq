@@ -1,3 +1,12 @@
+ESX = nil
+
+Citizen.CreateThread(function()
+    while ESX == nil do
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        Citizen.Wait(0)
+    end
+end)
+
 local lastSkin, cam, isCameraActive
 local firstSpawn, zoomOffset, camOffset, heading, skinLoaded = true, 0.0, 0.0, 90.0, false
 
@@ -253,21 +262,18 @@ AddEventHandler('esx_skin:playerRegistered', function()
             Citizen.Wait(100)
         end
 
-        if firstSpawn then
-            ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
-                if skin == nil then
-                    TriggerEvent('skinchanger:loadSkin', {sex = 0}, OpenSaveableMenu)
-                    Citizen.Wait(100)
-                    skinLoaded = true
-                else
-                    TriggerEvent('skinchanger:loadSkin', skin)
-                    Citizen.Wait(100)
-                    skinLoaded = true
-                end
-            end)
-
-            firstSpawn = false
-        end
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+            if skin == nil then
+                TriggerEvent('skinchanger:loadSkin', {sex = 0}, OpenSaveableMenu)
+                Citizen.Wait(100)
+                skinLoaded = true
+            else
+                TriggerEvent('skinchanger:loadSkin', skin)
+                Citizen.Wait(100)
+                skinLoaded = true
+            end
+        end)
+        firstSpawn = false
     end)
 end)
 
